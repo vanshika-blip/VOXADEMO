@@ -559,7 +559,7 @@ async function pollAgent(agent, allUsers) {
     if(newStatus==='COMPLETED'&&qlH.length&&!qlExist.has(callId)&&isQualified(agent,result)){
       const qlRow=new Array(qlH.length).fill('');
       qlH.forEach((h,k)=>{const mi=mtH.indexOf(h);if(mi>=0)qlRow[k]=nr[mi];});
-      const mobC=mtH.indexOf('Mobile Number'); const mobile=mobC>=0?String(row[mobC]||')':'';
+      const mobC=mtH.indexOf('Mobile Number'); const mobile=mobC>=0?String(row[mobC]||''):'';
       const {assignEmail,recruiterName}=resolveAssignment(reqId,mobile,row,mtH,uMap);
       const ac=qlH.indexOf('Assigned To Email'); const rc=qlH.indexOf('Recruiter'); const dc=qlH.indexOf('Date Added');
       if(ac>=0&&assignEmail)qlRow[ac]=assignEmail; if(rc>=0&&recruiterName)qlRow[rc]=recruiterName; if(dc>=0)qlRow[dc]=new Date().toISOString();
