@@ -90,7 +90,7 @@ async function validateSession(sessionToken) {
 
 // ─── Main proxy route → GAS ──────────────────────────────────────────────────
 
-app.post('/', async (req, res) => {
+async function proxyToGAS(req, res) {
   if (!GAS_URL) return res.json({ ok: false, error: 'GAS_URL not configured' });
   try {
     const response = await axios.post(GAS_URL, req.body, {
@@ -103,7 +103,10 @@ app.post('/', async (req, res) => {
     console.error('[proxy] GAS error:', msg);
     res.status(500).json({ ok: false, error: String(msg).slice(0, 300) });
   }
-});
+}
+
+app.post('/', proxyToGAS);
+app.post('/api', proxyToGAS);
 
 // ─── Poller admin endpoints ──────────────────────────────────────────────────
 
